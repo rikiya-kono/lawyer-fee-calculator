@@ -176,7 +176,7 @@ function calculateCivil(amountManyen, options = {}) {
     const { isNegotiation, isPromissory, isContinued, adjustmentRate, expertiseRate, isSuccessOnly } = options;
 
     if (amountManyen <= 0) {
-        return { retainer: 0, success: 0, details: [] };
+        return { retainer: 0, success: 0, details: [], retainerFormula: '', successFormula: '' };
     }
 
     let standards, minRetainer;
@@ -192,46 +192,73 @@ function calculateCivil(amountManyen, options = {}) {
     const tierIndex = getTierIndex(amountManyen);
     const tier = standards.tiers[tierIndex];
 
+    // 基本計算
     let retainer = amountManyen * tier.retainerRate + standards.retainerAdd[tierIndex];
     let success = amountManyen * tier.successRate + standards.successAdd[tierIndex];
 
+    // 計算式を構築
+    const ratePercent = (tier.retainerRate * 100);
+    const successRatePercent = (tier.successRate * 100);
+    let retainerFormulaParts = [`${formatNumber(amountManyen)}万円 × ${ratePercent}%`];
+    let successFormulaParts = [`${formatNumber(amountManyen)}万円 × ${successRatePercent}%`];
+
+    if (standards.retainerAdd[tierIndex] > 0) {
+        retainerFormulaParts.push(`+ ${formatNumber(standards.retainerAdd[tierIndex])}万円`);
+    }
+    if (standards.successAdd[tierIndex] > 0) {
+        successFormulaParts.push(`+ ${formatNumber(standards.successAdd[tierIndex])}万円`);
+    }
+
     const details = [];
-    details.push(`基本計算: 経済的利益 ${formatNumber(amountManyen)}万円`);
 
     // 調停・示談交渉の場合は2/3
     if (isNegotiation && !isPromissory) {
         retainer = retainer * (2 / 3);
         success = success * (2 / 3);
+        retainerFormulaParts = [`(${retainerFormulaParts.join(' ')}) × 2/3`];
+        successFormulaParts = [`(${successFormulaParts.join(' ')}) × 2/3`];
         details.push('調停・示談交渉: 2/3適用');
     }
 
     // 継続受任（示談→調停→訴訟）の場合着手金1/2
     if (isContinued) {
         retainer = retainer / 2;
+        retainerFormulaParts.push('× 1/2');
         details.push('継続受任: 着手金1/2適用');
     }
 
     // 最低着手金の適用
+    const appliedMin = retainer < minRetainer;
     retainer = Math.max(retainer, minRetainer);
+    if (appliedMin) {
+        retainerFormulaParts = [`最低着手金 ${formatNumber(minRetainer)}万円を適用`];
+    }
 
     // 事件内容による増減額（±30%）
     if (adjustmentRate && adjustmentRate !== 0) {
         const adjFactor = 1 + (adjustmentRate / 100);
         retainer = retainer * adjFactor;
         success = success * adjFactor;
-        details.push(`事件内容による調整: ${adjustmentRate > 0 ? '+' : ''}${adjustmentRate}%`);
+        const adjSign = adjustmentRate > 0 ? '+' : '';
+        retainerFormulaParts.push(`× (1${adjSign}${adjustmentRate}%)`);
+        successFormulaParts.push(`× (1${adjSign}${adjustmentRate}%)`);
+        details.push(`事件内容による調整: ${adjSign}${adjustmentRate}%`);
     }
 
     // 専門性加算
     if (expertiseRate && expertiseRate > 0) {
         retainer = retainer * (1 + expertiseRate / 100);
         success = success * (1 + expertiseRate / 100);
+        retainerFormulaParts.push(`× (1+${expertiseRate}%)`);
+        successFormulaParts.push(`× (1+${expertiseRate}%)`);
         details.push(`専門性加算: +${expertiseRate}%`);
     }
 
     // 着手金なし・成功報酬のみ
     if (isSuccessOnly) {
         success = success + retainer;
+        successFormulaParts = [`報酬金 + 着手金相当額`];
+        retainerFormulaParts = ['着手金なし'];
         retainer = 0;
         details.push('着手金なし・成功報酬のみ');
     }
@@ -239,6 +266,8 @@ function calculateCivil(amountManyen, options = {}) {
     return {
         retainer: toYen(retainer),
         success: toYen(success),
+        retainerFormula: retainerFormulaParts.join(' '),
+        successFormula: successFormulaParts.join(' '),
         details
     };
 }
@@ -899,16 +928,6 @@ function calculateDailyFromForm() {
 function formatResult(result, taxRate, caseType) {
     let html = '';
 
-    // 詳細セクション
-    if (result.details && result.details.length > 0) {
-        html += `
-            <div class="result-section">
-                <div class="result-section-title">計算条件</div>
-                ${result.details.map(d => `<div class="result-item"><span class="result-label">${d}</span></div>`).join('')}
-            </div>
-        `;
-    }
-
     // 金額セクション
     html += '<div class="result-section"><div class="result-section-title">計算結果</div>';
 
@@ -935,10 +954,16 @@ function formatStandardResultHtml(result, taxRate) {
     const successWithTax = result.success * (1 + taxRate);
     const total = retainerWithTax + successWithTax;
 
-    let html = `
-        <div class="result-item">
-            <span class="result-label">着手金（税抜）</span>
-            <span class="result-value">${formatCurrency(result.retainer)}</span>
+    let html = '';
+
+    // 着手金
+    html += `
+        <div class="result-item-block">
+            <div class="result-item">
+                <span class="result-label">着手金（税抜）</span>
+                <span class="result-value">${formatCurrency(result.retainer)}</span>
+            </div>
+            ${result.retainerFormula ? `<div class="result-formula">${result.retainerFormula}</div>` : ''}
         </div>
     `;
 
@@ -951,11 +976,15 @@ function formatStandardResultHtml(result, taxRate) {
         `;
     }
 
+    // 報酬金
     if (result.success > 0) {
         html += `
-            <div class="result-item">
-                <span class="result-label">報酬金（税抜）</span>
-                <span class="result-value">${formatCurrency(result.success)}</span>
+            <div class="result-item-block">
+                <div class="result-item">
+                    <span class="result-label">報酬金（税抜）</span>
+                    <span class="result-value">${formatCurrency(result.success)}</span>
+                </div>
+                ${result.successFormula ? `<div class="result-formula">${result.successFormula}</div>` : ''}
             </div>
         `;
 
