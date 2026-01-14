@@ -1,62 +1,39 @@
 /* ========================================
    弁護士報酬計算ツール - スタイルシート
+   洗練されたプロフェッショナルデザイン
    ======================================== */
 
 :root {
-    /* カラーパレット */
-    --primary: #1a365d;
-    --primary-light: #2c5282;
-    --primary-dark: #0d1f3c;
-    --accent: #c9a227;
-    --accent-light: #d4b84a;
-    --accent-dark: #a68520;
+    /* モノトーン基調のカラーパレット */
+    --ink: #1a1a1a;
+    --ink-light: #333;
+    --ink-muted: #666;
+    --ink-subtle: #999;
 
-    --bg-dark: #0f1419;
-    --bg-card: #1a1f26;
-    --bg-input: #252b33;
-    --bg-hover: #2d343e;
+    --paper: #fafafa;
+    --paper-warm: #f5f4f2;
+    --paper-dark: #eee;
 
-    --text-primary: #f7fafc;
-    --text-secondary: #a0aec0;
-    --text-muted: #718096;
+    --accent: #2a4a6b;
+    --accent-light: #3d6a94;
 
-    --border: #2d3748;
-    --border-light: #4a5568;
-
-    --success: #48bb78;
-    --warning: #ed8936;
-    --error: #fc8181;
+    --border: #ddd;
+    --border-dark: #ccc;
 
     /* スペーシング */
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
-    --space-2xl: 3rem;
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 40px;
+    --space-2xl: 64px;
 
-    /* ボーダー */
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --radius-xl: 16px;
-
-    /* シャドウ */
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
-    --shadow-glow: 0 0 20px rgba(201, 162, 39, 0.2);
-
-    /* トランジション */
-    --transition-fast: 0.15s ease;
-    --transition-normal: 0.25s ease;
-    --transition-slow: 0.4s ease;
+    /* フォント */
+    --font-sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
+    --font-serif: "Hiragino Mincho ProN", "Noto Serif JP", serif;
 }
 
-/* ========================================
-   リセット & ベーススタイル
-   ======================================== */
-
+/* リセット */
 *,
 *::before,
 *::after {
@@ -66,26 +43,25 @@
 }
 
 html {
-    font-size: 16px;
-    scroll-behavior: smooth;
+    font-size: 15px;
 }
 
 body {
-    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg-dark);
-    color: var(--text-primary);
-    line-height: 1.6;
-    min-height: 100vh;
+    font-family: var(--font-sans);
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* ========================================
-   コンテナ
+   レイアウト
    ======================================== */
 
 .container {
-    max-width: 900px;
+    max-width: 720px;
     margin: 0 auto;
-    padding: var(--space-lg);
+    padding: var(--space-xl) var(--space-lg);
 }
 
 /* ========================================
@@ -93,126 +69,94 @@ body {
    ======================================== */
 
 .header {
-    text-align: center;
-    padding: var(--space-2xl) 0;
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-lg);
     border-bottom: 1px solid var(--border);
-    margin-bottom: var(--space-xl);
 }
 
 .logo {
-    font-size: 3rem;
-    margin-bottom: var(--space-md);
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-8px);
-    }
+    display: none;
 }
 
 .header h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: var(--space-sm);
-    letter-spacing: 0.05em;
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: var(--ink);
+    margin-bottom: var(--space-xs);
 }
 
 .subtitle {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    color: var(--ink-subtle);
+    letter-spacing: 0.05em;
 }
 
 /* ========================================
-   タブナビゲーション
+   タブ
    ======================================== */
 
 .tabs {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-xs);
-    padding: var(--space-sm);
-    background: var(--bg-card);
-    border-radius: var(--radius-lg);
+    gap: 0;
+    border-bottom: 1px solid var(--border);
     margin-bottom: var(--space-xl);
 }
 
 .tab {
-    flex: 0 1 auto;
     padding: var(--space-sm) var(--space-md);
-    background: transparent;
+    background: none;
     border: none;
-    border-radius: var(--radius-md);
-    color: var(--text-secondary);
+    border-bottom: 2px solid transparent;
+    color: var(--ink-muted);
     font-size: 0.85rem;
-    font-weight: 500;
     cursor: pointer;
-    transition: all var(--transition-fast);
-    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: -1px;
 }
 
 .tab:hover {
-    background: var(--bg-hover);
-    color: var(--text-primary);
+    color: var(--ink);
 }
 
 .tab.active {
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    color: var(--text-primary);
-    box-shadow: var(--shadow-md);
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+    font-weight: 500;
 }
 
 /* ========================================
-   計算機メインエリア
+   計算機
    ======================================== */
 
 .calculator {
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
-    padding: var(--space-xl);
-    box-shadow: var(--shadow-lg);
+    background: white;
     border: 1px solid var(--border);
+    padding: var(--space-xl);
 }
 
 .tab-content {
     display: none;
-    animation: fadeIn var(--transition-normal);
 }
 
 .tab-content.active {
     display: block;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 .section-title {
-    color: var(--accent);
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
     margin-bottom: var(--space-lg);
     padding-bottom: var(--space-sm);
     border-bottom: 1px solid var(--border);
 }
 
 /* ========================================
-   フォーム要素
+   フォーム
    ======================================== */
 
 .form-group {
@@ -221,10 +165,9 @@ body {
 
 .form-group label {
     display: block;
-    color: var(--text-secondary);
     font-size: 0.85rem;
-    font-weight: 500;
-    margin-bottom: var(--space-sm);
+    color: var(--ink-muted);
+    margin-bottom: var(--space-xs);
 }
 
 .input-group {
@@ -238,19 +181,13 @@ input[type="text"],
 select,
 textarea {
     width: 100%;
-    padding: var(--space-md);
-    background: var(--bg-input);
+    padding: 12px 14px;
+    background: var(--paper);
     border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    color: var(--text-primary);
+    color: var(--ink);
     font-size: 1rem;
     font-family: inherit;
-    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
-}
-
-textarea {
-    resize: vertical;
-    min-height: 80px;
+    transition: border-color 0.2s;
 }
 
 input[type="number"]:focus,
@@ -258,36 +195,139 @@ input[type="text"]:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.2);
+    border-color: var(--ink-muted);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
 }
 
 input::placeholder,
 textarea::placeholder {
-    color: var(--text-muted);
+    color: var(--ink-subtle);
+}
+
+select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
 }
 
 .unit {
-    color: var(--text-secondary);
+    color: var(--ink-muted);
     font-size: 0.9rem;
     white-space: nowrap;
 }
 
 .hint {
-    color: var(--text-muted);
+    color: var(--ink-subtle);
     font-size: 0.8rem;
     margin-top: var(--space-xs);
 }
 
-/* コンパクト入力グループ（専門性加算など） */
+/* コンパクト入力 */
 .input-group.compact {
     width: auto;
-    min-width: 120px;
 }
 
 .input-group.compact input[type="number"] {
-    width: 80px;
+    width: 72px;
     text-align: right;
+}
+
+/* ========================================
+   オプション・カスタマイズ
+   ======================================== */
+
+.options,
+.customization {
+    margin: var(--space-lg) 0;
+    padding: var(--space-lg);
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+}
+
+.options h3,
+.customization h3 {
+    font-size: 0.7rem;
+    color: var(--ink-subtle);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-md);
+    font-weight: 500;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    cursor: pointer;
+    padding: var(--space-xs) 0;
+    color: var(--ink);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.checkbox-label input[type="checkbox"] {
+    display: none;
+}
+
+.checkmark {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border: 1px solid var(--border-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 3px;
+}
+
+.checkbox-label input[type="checkbox"]:checked+.checkmark {
+    background: var(--ink);
+    border-color: var(--ink);
+}
+
+.checkbox-label input[type="checkbox"]:checked+.checkmark::after {
+    content: '';
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+}
+
+.custom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.custom-row:last-child {
+    margin-bottom: 0;
+}
+
+.custom-row label {
+    color: var(--ink);
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.custom-row select,
+.custom-row .input-group {
+    width: auto;
+}
+
+.custom-row select {
+    min-width: 160px;
 }
 
 /* ========================================
@@ -295,15 +335,14 @@ textarea::placeholder {
    ======================================== */
 
 .info-box {
-    background: rgba(201, 162, 39, 0.1);
-    border: 1px solid rgba(201, 162, 39, 0.3);
-    border-radius: var(--radius-md);
+    background: white;
+    border-left: 3px solid var(--accent);
     padding: var(--space-md);
     margin-bottom: var(--space-lg);
 }
 
 .info-box p {
-    color: var(--text-secondary);
+    color: var(--ink-muted);
     font-size: 0.85rem;
     margin-bottom: var(--space-sm);
 }
@@ -313,105 +352,14 @@ textarea::placeholder {
 }
 
 .info-box ul {
-    color: var(--text-muted);
+    color: var(--ink-muted);
     font-size: 0.8rem;
     padding-left: var(--space-lg);
     margin: 0;
 }
 
-.info-box li {
-    margin-bottom: var(--space-xs);
-}
-
 /* ========================================
-   チェックボックス
-   ======================================== */
-
-.options,
-.customization {
-    margin: var(--space-lg) 0;
-    padding: var(--space-lg);
-    background: var(--bg-input);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-}
-
-.options h3,
-.customization h3 {
-    color: var(--text-secondary);
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: var(--space-md);
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-sm);
-    cursor: pointer;
-    padding: var(--space-sm) 0;
-    color: var(--text-primary);
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
-
-.checkbox-label input[type="checkbox"] {
-    display: none;
-}
-
-.checkmark {
-    flex-shrink: 0;
-    width: 20px;
-    height: 20px;
-    background: var(--bg-dark);
-    border: 2px solid var(--border-light);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all var(--transition-fast);
-    margin-top: 2px;
-}
-
-.checkbox-label input[type="checkbox"]:checked+.checkmark {
-    background: var(--accent);
-    border-color: var(--accent);
-}
-
-.checkbox-label input[type="checkbox"]:checked+.checkmark::after {
-    content: '✓';
-    color: var(--bg-dark);
-    font-size: 0.75rem;
-    font-weight: 700;
-}
-
-.checkbox-label:hover .checkmark {
-    border-color: var(--accent);
-}
-
-.custom-row {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
-}
-
-.custom-row label {
-    flex: 1;
-    color: var(--text-primary);
-    font-size: 0.9rem;
-    margin-bottom: 0;
-}
-
-.custom-row select {
-    width: auto;
-    min-width: 180px;
-}
-
-/* ========================================
-   消費税設定
+   消費税・計算ボタン
    ======================================== */
 
 .tax-settings {
@@ -420,68 +368,46 @@ textarea::placeholder {
     border-top: 1px solid var(--border);
 }
 
-/* ========================================
-   計算ボタン
-   ======================================== */
-
 .calculate-btn {
     width: 100%;
-    padding: var(--space-md) var(--space-xl);
+    padding: 14px var(--space-xl);
     margin-top: var(--space-xl);
-    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    background: var(--ink);
     border: none;
-    border-radius: var(--radius-md);
-    color: var(--bg-dark);
-    font-size: 1.1rem;
-    font-weight: 700;
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
     cursor: pointer;
-    transition: all var(--transition-fast);
-    box-shadow: var(--shadow-md);
+    transition: background 0.2s;
 }
 
 .calculate-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
-}
-
-.calculate-btn:active {
-    transform: translateY(0);
+    background: var(--ink-light);
 }
 
 /* ========================================
-   結果表示
+   結果
    ======================================== */
 
 .results {
     margin-top: var(--space-xl);
-    animation: slideUp var(--transition-normal);
-}
-
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
 }
 
 .results h2 {
-    color: var(--text-primary);
-    font-size: 1.25rem;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
     margin-bottom: var(--space-lg);
-    text-align: center;
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border);
 }
 
 .result-card {
-    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-    border-radius: var(--radius-xl);
+    background: white;
+    border: 1px solid var(--border);
     padding: var(--space-xl);
-    border: 1px solid var(--primary-light);
-    box-shadow: var(--shadow-lg);
 }
 
 .result-section {
@@ -489,14 +415,12 @@ textarea::placeholder {
 }
 
 .result-section-title {
-    color: var(--accent);
-    font-size: 0.85rem;
-    font-weight: 600;
+    font-size: 0.7rem;
+    color: var(--ink-subtle);
     text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: var(--space-md);
-    padding-bottom: var(--space-xs);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 500;
 }
 
 .result-item {
@@ -504,45 +428,47 @@ textarea::placeholder {
     justify-content: space-between;
     align-items: center;
     padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--paper-dark);
+}
+
+.result-item:last-child {
+    border-bottom: none;
 }
 
 .result-label {
-    color: var(--text-secondary);
+    color: var(--ink-muted);
     font-size: 0.9rem;
 }
 
 .result-value {
-    color: var(--text-primary);
-    font-size: 1.1rem;
-    font-weight: 600;
+    color: var(--ink);
+    font-size: 1rem;
+    font-weight: 500;
     font-feature-settings: 'tnum';
 }
 
 .result-total {
     margin-top: var(--space-lg);
     padding-top: var(--space-lg);
-    border-top: 2px solid var(--accent);
+    border-top: 2px solid var(--ink);
 }
 
 .result-total .result-label {
-    color: var(--accent);
-    font-weight: 600;
-    font-size: 1rem;
+    color: var(--ink);
+    font-weight: 500;
 }
 
 .result-total .result-value {
-    color: var(--accent);
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .result-note {
     margin-top: var(--space-lg);
     padding: var(--space-md);
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: var(--radius-md);
+    background: var(--paper-warm);
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: var(--ink-muted);
 }
 
 /* ========================================
@@ -551,38 +477,32 @@ textarea::placeholder {
 
 .result-actions {
     display: flex;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     margin-top: var(--space-lg);
-    justify-content: center;
-    flex-wrap: wrap;
 }
 
 .action-btn {
-    padding: var(--space-sm) var(--space-lg);
-    background: var(--bg-card);
+    padding: 10px var(--space-lg);
+    background: white;
     border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    color: var(--text-primary);
-    font-size: 0.9rem;
+    color: var(--ink);
+    font-size: 0.85rem;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: border-color 0.2s, background 0.2s;
 }
 
 .action-btn:hover {
-    background: var(--bg-hover);
-    border-color: var(--accent);
+    border-color: var(--ink-muted);
 }
 
 .action-btn.primary {
-    background: linear-gradient(135deg, var(--accent), var(--accent-light));
-    border-color: var(--accent);
-    color: var(--bg-dark);
-    font-weight: 600;
+    background: var(--ink);
+    border-color: var(--ink);
+    color: white;
 }
 
 .action-btn.primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    background: var(--ink-light);
 }
 
 /* ========================================
@@ -595,7 +515,7 @@ textarea::placeholder {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -605,18 +525,16 @@ textarea::placeholder {
 }
 
 .modal {
-    background: var(--bg-card);
-    border-radius: var(--radius-xl);
-    max-width: 600px;
+    background: white;
+    max-width: 560px;
     width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    box-shadow: var(--shadow-lg);
     border: 1px solid var(--border);
 }
 
 .modal-large {
-    max-width: 800px;
+    max-width: 720px;
 }
 
 .modal-header {
@@ -628,14 +546,16 @@ textarea::placeholder {
 }
 
 .modal-header h2 {
-    color: var(--text-primary);
-    font-size: 1.25rem;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
 }
 
 .modal-close {
     background: none;
     border: none;
-    color: var(--text-secondary);
+    color: var(--ink-muted);
     font-size: 1.5rem;
     cursor: pointer;
     padding: 0;
@@ -643,7 +563,7 @@ textarea::placeholder {
 }
 
 .modal-close:hover {
-    color: var(--text-primary);
+    color: var(--ink);
 }
 
 .modal-body {
@@ -658,10 +578,11 @@ textarea::placeholder {
 
 .modal-footer {
     display: flex;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     justify-content: flex-end;
     padding: var(--space-lg);
     border-top: 1px solid var(--border);
+    background: var(--paper);
 }
 
 /* ========================================
@@ -670,38 +591,37 @@ textarea::placeholder {
 
 .estimate-preview {
     background: white;
-    color: #333;
-    padding: 40px;
-    font-family: 'Noto Sans JP', serif;
+    color: var(--ink);
+    padding: 48px;
+    font-family: var(--font-serif);
     font-size: 14px;
-    line-height: 1.8;
+    line-height: 2;
 }
 
 .estimate-preview h1 {
     text-align: center;
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 40px;
-    letter-spacing: 0.3em;
-    border-bottom: 3px double #333;
-    padding-bottom: 20px;
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 48px;
+    letter-spacing: 0.5em;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 24px;
 }
 
 .estimate-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
 }
 
 .estimate-client {
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 16px;
 }
 
 .estimate-client-name {
-    border-bottom: 1px solid #333;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 .estimate-info {
@@ -710,37 +630,37 @@ textarea::placeholder {
 }
 
 .estimate-info p {
-    margin: 3px 0;
+    margin: 2px 0;
 }
 
 .estimate-date {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     text-align: right;
 }
 
 .estimate-case-title {
-    background: #f5f5f5;
-    padding: 15px;
-    margin-bottom: 30px;
-    border-left: 4px solid #333;
+    background: var(--paper);
+    padding: 16px;
+    margin-bottom: 32px;
+    border-left: 3px solid var(--ink);
 }
 
 .estimate-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 }
 
 .estimate-table th,
 .estimate-table td {
-    border: 1px solid #333;
-    padding: 12px 15px;
+    border: 1px solid var(--ink);
+    padding: 12px 16px;
     text-align: left;
 }
 
 .estimate-table th {
-    background: #f5f5f5;
-    font-weight: 600;
+    background: var(--paper);
+    font-weight: 500;
 }
 
 .estimate-table .amount {
@@ -749,61 +669,62 @@ textarea::placeholder {
 }
 
 .estimate-table .total-row {
-    background: #f0f0f0;
-    font-weight: 700;
+    background: var(--paper);
 }
 
 .estimate-table .grand-total {
-    background: #333;
+    background: var(--ink);
     color: white;
-    font-size: 16px;
 }
 
 .estimate-notes {
-    background: #fafafa;
+    background: var(--paper);
     padding: 20px;
-    border: 1px solid #ddd;
-    margin-bottom: 30px;
+    border: 1px solid var(--border);
+    margin-bottom: 32px;
     font-size: 13px;
+    font-family: var(--font-sans);
 }
 
 .estimate-notes h3 {
-    font-size: 14px;
-    margin-bottom: 10px;
-    color: #666;
+    font-size: 12px;
+    margin-bottom: 8px;
+    color: var(--ink-muted);
+    font-weight: 500;
 }
 
 .estimate-validity {
     text-align: center;
     font-size: 12px;
-    color: #666;
-    margin-bottom: 40px;
+    color: var(--ink-muted);
+    margin-bottom: 48px;
+    font-family: var(--font-sans);
 }
 
 .estimate-office-info {
     text-align: right;
-    margin-top: 60px;
-    padding-top: 20px;
-    border-top: 1px solid #ddd;
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
 }
 
 .estimate-office-name {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 5px;
+    font-size: 15px;
+    margin-bottom: 4px;
 }
 
 .estimate-stamp-area {
     display: inline-block;
-    width: 80px;
-    height: 80px;
-    border: 1px dashed #ccc;
-    margin-left: 20px;
+    width: 72px;
+    height: 72px;
+    border: 1px dashed var(--border-dark);
+    margin-left: 16px;
     vertical-align: bottom;
     text-align: center;
-    line-height: 80px;
-    color: #ccc;
-    font-size: 12px;
+    line-height: 72px;
+    color: var(--ink-subtle);
+    font-size: 11px;
+    font-family: var(--font-sans);
 }
 
 /* ========================================
@@ -812,41 +733,37 @@ textarea::placeholder {
 
 .footer {
     margin-top: var(--space-2xl);
-    padding-top: var(--space-xl);
+    padding-top: var(--space-lg);
     border-top: 1px solid var(--border);
-    text-align: center;
 }
 
 .disclaimer {
-    color: var(--text-muted);
-    font-size: 0.8rem;
+    color: var(--ink-subtle);
+    font-size: 0.75rem;
     line-height: 1.8;
     margin-bottom: var(--space-md);
 }
 
 .copyright {
-    color: var(--text-muted);
-    font-size: 0.75rem;
+    color: var(--ink-subtle);
+    font-size: 0.7rem;
 }
 
 /* ========================================
-   トースト通知
+   トースト
    ======================================== */
 
 .toast {
     position: fixed;
-    bottom: 20px;
+    bottom: 24px;
     left: 50%;
     transform: translateX(-50%) translateY(100px);
-    background: var(--success);
-    color: var(--bg-dark);
-    padding: var(--space-md) var(--space-xl);
-    border-radius: var(--radius-md);
-    font-size: 0.9rem;
-    font-weight: 500;
-    box-shadow: var(--shadow-lg);
+    background: var(--ink);
+    color: white;
+    padding: 12px 24px;
+    font-size: 0.85rem;
     opacity: 0;
-    transition: all var(--transition-normal);
+    transition: all 0.3s;
     z-index: 1000;
 }
 
@@ -856,46 +773,42 @@ textarea::placeholder {
 }
 
 /* ========================================
-   レスポンシブ対応
+   レスポンシブ
    ======================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
+    html {
+        font-size: 14px;
+    }
+
     .container {
-        padding: var(--space-md);
-    }
-
-    .header {
-        padding: var(--space-xl) 0;
-    }
-
-    .header h1 {
-        font-size: 1.5rem;
+        padding: var(--space-lg) var(--space-md);
     }
 
     .tabs {
-        padding: var(--space-xs);
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
     }
 
     .tab {
-        padding: var(--space-xs) var(--space-sm);
-        font-size: 0.75rem;
+        white-space: nowrap;
+        font-size: 0.8rem;
+        padding: var(--space-sm);
     }
 
     .calculator {
         padding: var(--space-lg);
     }
 
-    .options,
-    .customization {
-        padding: var(--space-md);
-    }
-
     .custom-row {
         flex-direction: column;
         align-items: flex-start;
+        gap: var(--space-xs);
     }
 
-    .custom-row select {
+    .custom-row select,
+    .custom-row .input-group {
         width: 100%;
     }
 
@@ -908,18 +821,13 @@ textarea::placeholder {
         text-align: center;
     }
 
-    .modal {
-        margin: var(--space-md);
-        max-height: calc(100vh - 2rem);
-    }
-
     .estimate-preview {
-        padding: 20px;
+        padding: 24px;
     }
 
     .estimate-header {
         flex-direction: column;
-        gap: 20px;
+        gap: 24px;
     }
 
     .estimate-info {
@@ -928,14 +836,10 @@ textarea::placeholder {
 }
 
 /* ========================================
-   印刷用スタイル
+   印刷
    ======================================== */
 
 @media print {
-    body {
-        background: white;
-        color: black;
-    }
 
     .tabs,
     .calculate-btn,
@@ -951,24 +855,9 @@ textarea::placeholder {
         padding: 0;
     }
 
-    .header {
-        border-bottom: 2px solid black;
-        padding: 20px 0;
-    }
-
-    .calculator {
-        background: white;
-        border: 1px solid #ccc;
-        box-shadow: none;
-    }
-
+    .calculator,
     .result-card {
-        background: #f5f5f5;
-        border: 2px solid #333;
-    }
-
-    .result-label,
-    .result-value {
-        color: black;
+        border: none;
+        padding: 0;
     }
 }
