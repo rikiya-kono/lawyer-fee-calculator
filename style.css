@@ -620,6 +620,46 @@ select:focus {
     padding: 30px;
 }
 
+/* モーダル内フォーム */
+.modal-body .form-group {
+    margin-bottom: 20px;
+}
+
+.modal-body label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+}
+
+.modal-body input[type="text"],
+.modal-body input[type="tel"],
+.modal-body input[type="date"],
+.modal-body textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    font-family: var(--font-sans);
+    transition: all 0.2s;
+    background: #fdfdfd;
+}
+
+.modal-body input:focus,
+.modal-body textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(207, 168, 110, 0.15);
+    background: white;
+}
+
+.modal-body textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
 .modal-footer {
     background: #f9f9f9;
     padding: 24px 30px;
