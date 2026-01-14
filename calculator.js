@@ -1274,9 +1274,19 @@ function generateEstimatePreview() {
 
 function downloadPDF() {
     const element = document.getElementById('estimate-preview');
+
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const hh = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
+
+    const filename = `Estimate_${yyyy}${mm}${dd}_${hh}${min}.pdf`;
+
     const opt = {
         margin: 10,
-        filename: `見積書_${formatDate(new Date()).replace(/\//g, '')}.pdf`,
+        filename: filename,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, useCORS: true },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
