@@ -65,15 +65,10 @@
                     <h3>カスタマイズ</h3>
                     <div class="custom-row">
                         <label for="civil-adjustment">事件内容による増減額（※3）</label>
-                        <select id="civil-adjustment">
-                            <option value="-30">-30%（簡明な事件）</option>
-                            <option value="-20">-20%</option>
-                            <option value="-10">-10%</option>
-                            <option value="0" selected>±0%（標準）</option>
-                            <option value="10">+10%</option>
-                            <option value="20">+20%</option>
-                            <option value="30">+30%（複雑・困難な事件）</option>
-                        </select>
+                        <div class="input-group compact">
+                            <input type="number" id="civil-adjustment" value="0" min="-30" max="30" step="1">
+                            <span class="unit">%</span>
+                        </div>
                     </div>
                     <div class="custom-row">
                         <label for="civil-expertise">専門性加算</label>
@@ -87,7 +82,6 @@
                         <span class="checkmark"></span>
                         着手金なし・成功報酬のみ（報酬金に着手金相当額を上乗せ）
                     </label>
-                </div>
             </section>
 
             <!-- 契約締結交渉 -->
@@ -114,13 +108,11 @@
                     <h3>カスタマイズ</h3>
                     <div class="custom-row">
                         <label for="negotiation-adjustment">事件内容による増減額</label>
-                        <select id="negotiation-adjustment">
-                            <option value="-30">-30%</option>
-                            <option value="0" selected>±0%（標準）</option>
-                            <option value="30">+30%</option>
-                        </select>
+                        <div class="input-group compact">
+                            <input type="number" id="negotiation-adjustment" value="0" min="-30" max="30" step="1">
+                            <span class="unit">%</span>
+                        </div>
                     </div>
-                </div>
             </section>
 
             <!-- 督促手続事件 -->
