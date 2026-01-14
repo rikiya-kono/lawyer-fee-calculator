@@ -781,3 +781,136 @@ select:focus {
         background: white !important;
     }
 }
+
+/* ========================================
+   見積書プレビュー
+   ======================================== */
+
+.estimate-preview {
+    background: #ffffff;
+    /* print時に白背景を確保 */
+    padding: 40px;
+    color: #333;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+    /* 明朝体で見積書らしく */
+    line-height: 1.6;
+    border: 1px solid #eee;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.estimate-preview h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+    border-bottom: 3px double #333;
+    padding-bottom: 10px;
+    color: #333;
+}
+
+.estimate-date {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.estimate-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.estimate-client {
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+    min-width: 250px;
+}
+
+.estimate-client-name {
+    font-size: 1.2em;
+    margin-bottom: 4px;
+}
+
+.estimate-info p {
+    margin: 2px 0;
+    font-size: 14px;
+}
+
+.estimate-case-title {
+    margin-bottom: 20px;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.estimate-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.estimate-table th,
+.estimate-table td {
+    border: 1px solid #888;
+    padding: 12px;
+}
+
+.estimate-table th {
+    background: #f5f5f5;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+}
+
+.estimate-table td.amount {
+    text-align: right;
+}
+
+.estimate-table .total-row td {
+    font-weight: bold;
+    background: #fcfcfc;
+}
+
+.estimate-table .grand-total td {
+    font-size: 18px;
+    border-top: 2px solid #333;
+    background: #fff;
+}
+
+.estimate-notes {
+    margin-top: 40px;
+    font-size: 13px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.estimate-notes h3 {
+    margin-top: 0;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #555;
+    border: none;
+    padding: 0;
+}
+
+.estimate-validity {
+    margin-top: 20px;
+    text-align: right;
+    font-size: 14px;
+}
+
+.estimate-office-info {
+    margin-top: 40px;
+    text-align: right;
+}
+
+.estimate-office-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
