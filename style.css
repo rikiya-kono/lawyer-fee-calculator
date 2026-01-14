@@ -582,6 +582,38 @@ select:focus {
     background: #fdfdfd;
     border-bottom: 1px solid var(--color-border-light);
     padding: 24px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    font-size: 1.2rem;
+    font-family: var(--font-serif);
+    color: var(--color-primary);
+    margin: 0;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--color-text-subtle);
+    font-size: 1.5rem;
+    transition: all 0.2s;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--color-primary);
 }
 
 .modal-body {
