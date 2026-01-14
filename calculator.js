@@ -644,7 +644,42 @@ document.addEventListener('DOMContentLoaded', () => {
     initFormHandlers();
     initModalHandlers();
     initActionButtons();
+    initGuideModal();
 });
+
+/**
+ * 初回訪問時のガイドモーダル
+ */
+function initGuideModal() {
+    const guideModal = document.getElementById('guide-modal');
+    const guideClose = document.getElementById('guide-close');
+    const guideStart = document.getElementById('guide-start');
+    const dontShowCheckbox = document.getElementById('guide-dont-show');
+
+    // 初回訪問チェック
+    const hasVisited = localStorage.getItem('lawyer-fee-calc-visited');
+
+    if (!hasVisited) {
+        guideModal.style.display = 'flex';
+    }
+
+    const closeGuide = () => {
+        guideModal.style.display = 'none';
+        if (dontShowCheckbox.checked) {
+            localStorage.setItem('lawyer-fee-calc-visited', 'true');
+        }
+    };
+
+    guideClose.addEventListener('click', closeGuide);
+    guideStart.addEventListener('click', () => {
+        closeGuide();
+        localStorage.setItem('lawyer-fee-calc-visited', 'true');
+    });
+
+    guideModal.addEventListener('click', (e) => {
+        if (e.target === guideModal) closeGuide();
+    });
+}
 
 function initTabs() {
     const tabs = document.querySelectorAll('.tab');

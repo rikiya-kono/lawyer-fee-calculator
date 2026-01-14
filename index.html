@@ -430,7 +430,7 @@
                 ※ 本ツールは旧日弁連報酬基準（2004年4月廃止）に基づく参考計算です。<br>
                 実際の報酬額は弁護士と依頼者間の協議により決定されます。
             </p>
-            <p class="copyright">© 2024 弁護士報酬計算ツール</p>
+            <p class="copyright">© 2026 弁護士報酬計算ツール</p>
         </footer>
     </div>
 
@@ -504,6 +504,42 @@
     </div>
 
     <div class="toast" id="toast">クリップボードにコピーしました</div>
+
+    <!-- 初回訪問時の使い方ガイド -->
+    <div class="modal-overlay" id="guide-modal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>使い方</h2>
+                <button class="modal-close" id="guide-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="guide-content">
+                    <h3>1. 事件種別を選択</h3>
+                    <p>タブから該当する事件の種類を選んでください。民事事件、離婚事件、破産・再生、刑事事件などに対応しています。</p>
+
+                    <h3>2. 金額・条件を入力</h3>
+                    <p>経済的利益の額（万円単位）や、調停・訴訟の区別、専門性加算などのオプションを設定します。</p>
+
+                    <h3>3. 計算結果を確認</h3>
+                    <p>「計算する」ボタンを押すと、着手金・報酬金が計算式とともに表示されます。</p>
+
+                    <h3>4. 見積書の作成</h3>
+                    <p>「見積書を作成」ボタンで、事務所情報を入力してPDFとしてダウンロードできます。</p>
+                </div>
+                <div class="guide-note">
+                    <p>※ 本ツールは旧日弁連報酬基準（2004年廃止）に基づく参考計算です。実際の報酬額は弁護士と依頼者間の協議により決定されます。</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="guide-dont-show">
+                    <span class="checkmark"></span>
+                    次回から表示しない
+                </label>
+                <button class="action-btn primary" id="guide-start">はじめる</button>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="calculator.js"></script>

@@ -744,6 +744,45 @@ select {
 }
 
 /* ========================================
+   使い方ガイド
+   ======================================== */
+
+.guide-content h3 {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    margin: var(--space-lg) 0 var(--space-xs) 0;
+}
+
+.guide-content h3:first-child {
+    margin-top: 0;
+}
+
+.guide-content p {
+    font-size: 0.85rem;
+    color: var(--ink-muted);
+    line-height: 1.7;
+}
+
+.guide-note {
+    margin-top: var(--space-lg);
+    padding: var(--space-md);
+    background: var(--paper-warm);
+    border: 1px solid var(--border);
+}
+
+.guide-note p {
+    font-size: 0.8rem;
+    color: var(--ink-subtle);
+    margin: 0;
+}
+
+.modal-footer .checkbox-label {
+    flex: 1;
+    font-size: 0.85rem;
+}
+
+/* ========================================
    フッター
    ======================================== */
 
