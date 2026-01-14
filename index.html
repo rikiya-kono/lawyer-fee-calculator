@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弁護士報酬計算ツール（旧基準）</title>
+    <meta name="description" content="旧弁護士報酬基準に基づいた着手金・報酬金の自動計算ツール。民事事件、離婚事件、破産事件、刑事事件、顧問契約、日当に対応。">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">⚖️</div>
+            <h1>弁護士報酬計算ツール</h1>
+            <p class="subtitle">旧日弁連報酬基準に基づく自動計算</p>
+        </header>
+
+        <nav class="tabs" role="tablist">
+            <button class="tab active" role="tab" data-tab="civil" aria-selected="true">民事事件</button>
+            <button class="tab" role="tab" data-tab="negotiation" aria-selected="false">契約締結交渉</button>
+            <button class="tab" role="tab" data-tab="payment-order" aria-selected="false">督促手続</button>
+            <button class="tab" role="tab" data-tab="divorce" aria-selected="false">離婚事件</button>
+            <button class="tab" role="tab" data-tab="bankruptcy" aria-selected="false">破産・再生</button>
+            <button class="tab" role="tab" data-tab="preservation" aria-selected="false">保全命令</button>
+            <button class="tab" role="tab" data-tab="criminal" aria-selected="false">刑事事件</button>
+            <button class="tab" role="tab" data-tab="retainer" aria-selected="false">顧問契約</button>
+            <button class="tab" role="tab" data-tab="daily" aria-selected="false">日当</button>
+        </nav>
+
+        <main class="calculator">
+            <!-- 民事事件 -->
+            <section class="tab-content active" id="civil">
+                <h3 class="section-title">訴訟事件・非訟事件・家事審判事件・行政事件・仲裁事件</h3>
+
+                <div class="form-group">
+                    <label for="civil-amount">経済的利益の額</label>
+                    <div class="input-group">
+                        <input type="number" id="civil-amount" placeholder="0" min="0" step="1">
+                        <span class="unit">万円</span>
+                    </div>
+                </div>
+
+                <div class="options">
+                    <h3>事件の種類</h3>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="civil-negotiation">
+                        <span class="checkmark"></span>
+                        調停・示談交渉事件（着手金・報酬金を2/3に減額）
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="civil-promissory">
+                        <span class="checkmark"></span>
+                        手形・小切手訴訟（着手金・報酬金1/2、最低額5万円）
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="civil-continued">
+                        <span class="checkmark"></span>
+                        示談交渉・調停から訴訟への移行（着手金1/2）
+                    </label>
+                </div>
+
+                <div class="customization">
+                    <h3>カスタマイズ</h3>
+                    <div class="custom-row">
+                        <label for="civil-adjustment">事件内容による増減額（※3）</label>
+                        <select id="civil-adjustment">
+                            <option value="-30">-30%（簡明な事件）</option>
+                            <option value="-20">-20%</option>
+                            <option value="-10">-10%</option>
+                            <option value="0" selected>±0%（標準）</option>
+                            <option value="10">+10%</option>
+                            <option value="20">+20%</option>
+                            <option value="30">+30%（複雑・困難な事件）</option>
+                        </select>
+                    </div>
+                    <div class="custom-row">
+                        <label for="civil-expertise">専門性加算</label>
+                        <select id="civil-expertise">
+                            <option value="0">なし</option>
+                            <option value="10">+10%</option>
+                            <option value="20">+20%</option>
+                            <option value="30">+30%</option>
+                            <option value="50">+50%</option>
+                            <option value="100">+100%</option>
+                        </select>
+                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="civil-success-only">
+                        <span class="checkmark"></span>
+                        着手金なし・成功報酬のみ（報酬金に着手金相当額を上乗せ）
+                    </label>
+                </div>
+            </section>
+
+            <!-- 契約締結交渉 -->
+            <section class="tab-content" id="negotiation">
+                <h3 class="section-title">契約締結交渉</h3>
+
+                <div class="form-group">
+                    <label for="negotiation-amount">契約の経済的利益の額</label>
+                    <div class="input-group">
+                        <input type="number" id="negotiation-amount" placeholder="0" min="0" step="1">
+                        <span class="unit">万円</span>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <p>契約締結交渉は、訴訟事件等の1/4の率で計算されます。</p>
+                    <ul>
+                        <li>着手金: 300万円以下 2%、3000万円以下 1%+3万円、3億円以下 0.5%+18万円、3億円超 0.3%+78万円</li>
+                        <li>報酬金: 着手金の2倍</li>
+                    </ul>
+                </div>
+
+                <div class="customization">
+                    <h3>カスタマイズ</h3>
+                    <div class="custom-row">
+                        <label for="negotiation-adjustment">事件内容による増減額</label>
+                        <select id="negotiation-adjustment">
+                            <option value="-30">-30%</option>
+                            <option value="0" selected>±0%（標準）</option>
+                            <option value="30">+30%</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 督促手続事件 -->
+            <section class="tab-content" id="payment-order">
+                <h3 class="section-title">督促手続事件</h3>
+
+                <div class="form-group">
+                    <label for="payment-order-amount">請求債権額</label>
+                    <div class="input-group">
+                        <input type="number" id="payment-order-amount" placeholder="0" min="0" step="1">
+                        <span class="unit">万円</span>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <p>督促手続は契約締結交渉と同じ率で計算されます。着手金最低額は5万円。</p>
+                    <p>報酬金は訴訟事件の1/2。金銭等の具体的な回収をしたときに限り請求可能。</p>
+                </div>
+
+                <div class="options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="payment-order-litigation">
+                        <span class="checkmark"></span>
+                        訴訟に移行する場合（着手金は訴訟基準との差額）
+                    </label>
+                </div>
+            </section>
+
+            <!-- 離婚事件 -->
+            <section class="tab-content" id="divorce">
+                <h3 class="section-title">離婚事件</h3>
+
+                <div class="form-group">
+                    <label for="divorce-type">事件の種類</label>
+                    <select id="divorce-type">
+                        <option value="negotiation">交渉・調停（20〜50万円）</option>
+                        <option value="litigation">訴訟（30〜60万円）</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="divorce-complexity">難易度</label>
+                    <select id="divorce-complexity">
+                        <option value="low">標準（範囲の下限）</option>
+                        <option value="medium" selected>中程度（範囲の中間）</option>
+                        <option value="high">複雑（範囲の上限）</option>
+                    </select>
+                </div>
+
+                <div class="options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="divorce-continued">
+                        <span class="checkmark"></span>
+                        調停から訴訟への移行（着手金1/2）
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="divorce-property">財産分与・慰謝料等の経済的利益</label>
+                    <div class="input-group">
+                        <input type="number" id="divorce-property" placeholder="0" min="0" step="1">
+                        <span class="unit">万円</span>
+                    </div>
+                    <p class="hint">0の場合は人事事件のみとして計算します</p>
+                </div>
+
+                <div class="customization">
+                    <h3>カスタマイズ</h3>
+                    <div class="custom-row">
+                        <label for="divorce-expertise">専門性加算</label>
+                        <select id="divorce-expertise">
+                            <option value="0">なし</option>
+                            <option value="10">+10%</option>
+                            <option value="20">+20%</option>
+                            <option value="30">+30%</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 破産・再生事件 -->
+            <section class="tab-content" id="bankruptcy">
+                <h3 class="section-title">倒産整理事件</h3>
+
+                <div class="form-group">
+                    <label for="bankruptcy-case-type">事件の種類</label>
+                    <select id="bankruptcy-case-type">
+                        <option value="self-bankruptcy">自己破産</option>
+                        <option value="other-bankruptcy">自己破産以外の破産</option>
+                        <option value="civil-rehabilitation">民事再生</option>
+                        <option value="company-arrangement">会社整理</option>
+                        <option value="special-liquidation">特別清算</option>
+                        <option value="corporate-reorganization">会社更生</option>
+                        <option value="voluntary-arrangement">任意整理</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bankruptcy-type">申立人の種類</label>
+                    <select id="bankruptcy-type">
+                        <option value="individual">個人（非事業者）</option>
+                        <option value="sole-proprietor">個人事業主</option>
+                        <option value="corporation">法人</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="corporation-details">
+                    <label for="bankruptcy-scale">法人規模</label>
+                    <select id="bankruptcy-scale">
+                        <option value="small">小規模</option>
+                        <option value="medium">中規模</option>
+                        <option value="large">大規模</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="bankruptcy-debt">負債総額（参考）</label>
+                    <div class="input-group">
+                        <input type="number" id="bankruptcy-debt" placeholder="0" min="0" step="1">
+                        <span class="unit">万円</span>
+                    </div>
+                </div>
+
+                <div class="customization">
+                    <h3>カスタマイズ</h3>
+                    <div class="custom-row">
+                        <label for="bankruptcy-expertise">専門性加算</label>
+                        <select id="bankruptcy-expertise">
+                            <option value="0">なし</option>
+                            <option value="10">+10%</option>
+                            <option value="20">+20%</option>
+                            <option value="30">+30%</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 保全命令申立事件 -->
+            <section class="tab-content" id="preservation">
+                <h3 class="section-title">保全命令申立事件等</h3>
+
+                <div class="form-group">
+                    <label for="preservation-amount">本案の経済的利益の額</label>
+                    <div class="input-group">
+                        <input type="number" id="preservation-amount" placeholder="0" min="0" step="1">
+                        <span class="unit">万円</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="preservation-type">手続の種類</label>
+                    <select id="preservation-type">
+                        <option value="basic">基本（着手金1/2）</option>
+                        <option value="hearing">審尋・口頭弁論を経る場合（着手金2/3）</option>
+                    </select>
+                </div>
+
+                <div class="options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="preservation-with-main">
+                        <span class="checkmark"></span>
+                        本案事件と併せて受任
+                    </label>
+                </div>
+
+                <div class="info-box">
+                    <p>報酬金は事件が重大・複雑なとき、または本案の目的を達したときに請求可能。</p>
+                </div>
+            </section>
+
+            <!-- 刑事事件 -->
+            <section class="tab-content" id="criminal">
+                <h3 class="section-title">刑事事件</h3>
+
+                <div class="form-group">
+                    <label for="criminal-stage">事件の段階</label>
+                    <select id="criminal-stage">
+                        <option value="pre-indictment">起訴前</option>
+                        <option value="post-indictment">起訴後（第一審）</option>
+                        <option value="appeal">上訴審</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="criminal-complexity">事案の複雑さ</label>
+                    <select id="criminal-complexity">
+                        <option value="simple">事案簡明</option>
+                        <option value="complex">複雑・重大</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="criminal-difficulty">難易度</label>
+                    <select id="criminal-difficulty">
+                        <option value="low">標準（範囲の下限）</option>
+                        <option value="medium" selected>中程度（範囲の中間）</option>
+                        <option value="high">困難（範囲の上限）</option>
+                    </select>
+                </div>
+
+                <div class="options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="criminal-continued">
+                        <span class="checkmark"></span>
+                        起訴前から継続受任（事案簡明な場合、着手金1/2）
+                    </label>
+                </div>
+
+                <div class="customization">
+                    <h3>カスタマイズ</h3>
+                    <div class="custom-row">
+                        <label for="criminal-expertise">専門性加算</label>
+                        <select id="criminal-expertise">
+                            <option value="0">なし</option>
+                            <option value="10">+10%</option>
+                            <option value="20">+20%</option>
+                            <option value="30">+30%</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 顧問契約 -->
+            <section class="tab-content" id="retainer">
+                <h3 class="section-title">顧問契約</h3>
+
+                <div class="form-group">
+                    <label for="retainer-type">顧問先の種類</label>
+                    <select id="retainer-type">
+                        <option value="business">事業者</option>
+                        <option value="individual">非事業者（個人）</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="business-scale-group">
+                    <label for="retainer-scale">事業規模</label>
+                    <select id="retainer-scale">
+                        <option value="small">小規模（月額5万円）</option>
+                        <option value="medium">中規模（月額10万円）</option>
+                        <option value="large">大規模（月額20万円以上）</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="retainer-period">契約期間</label>
+                    <select id="retainer-period">
+                        <option value="1">1ヶ月</option>
+                        <option value="6">6ヶ月</option>
+                        <option value="12" selected>1年</option>
+                        <option value="24">2年</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- 日当 -->
+            <section class="tab-content" id="daily">
+                <h3 class="section-title">日当</h3>
+
+                <div class="form-group">
+                    <label for="daily-type">拘束時間</label>
+                    <select id="daily-type">
+                        <option value="half">半日（往復2〜4時間）</option>
+                        <option value="full">一日（往復4時間超）</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="daily-rate">金額レベル</label>
+                    <select id="daily-rate">
+                        <option value="low">標準（範囲の下限）</option>
+                        <option value="medium" selected>中程度（範囲の中間）</option>
+                        <option value="high">高め（範囲の上限）</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="daily-count">日数</label>
+                    <div class="input-group">
+                        <input type="number" id="daily-count" value="1" min="1" step="1">
+                        <span class="unit">日</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 共通：消費税設定 -->
+            <div class="tax-settings">
+                <div class="custom-row">
+                    <label for="tax-rate">消費税率</label>
+                    <select id="tax-rate">
+                        <option value="0">なし（税抜表示のみ）</option>
+                        <option value="10" selected>10%</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="calculate-btn" id="calculate-btn">計算する</button>
+        </main>
+
+        <section class="results" id="results" style="display: none;">
+            <h2>計算結果</h2>
+            <div class="result-card" id="result-card">
+                <!-- 結果がここに挿入される -->
+            </div>
+            <div class="result-actions">
+                <button class="action-btn" id="copy-btn">📋 結果をコピー</button>
+                <button class="action-btn primary" id="export-btn">📄 見積書を作成</button>
+                <button class="action-btn" id="print-btn">🖨️ 印刷</button>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p class="disclaimer">
+                ※ 本ツールは旧日弁連報酬基準（2004年4月廃止）に基づく参考計算です。<br>
+                実際の報酬額は弁護士と依頼者間の協議により決定されます。
+            </p>
+            <p class="copyright">© 2024 弁護士報酬計算ツール</p>
+        </footer>
+    </div>
+
+    <!-- 見積書モーダル -->
+    <div class="modal-overlay" id="estimate-modal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>見積書作成</h2>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="estimate-office">事務所名</label>
+                    <input type="text" id="estimate-office" placeholder="○○法律事務所">
+                </div>
+                <div class="form-group">
+                    <label for="estimate-lawyer">弁護士名</label>
+                    <input type="text" id="estimate-lawyer" placeholder="弁護士 ○○ ○○">
+                </div>
+                <div class="form-group">
+                    <label for="estimate-address">事務所住所</label>
+                    <input type="text" id="estimate-address" placeholder="〒000-0000 東京都○○区...">
+                </div>
+                <div class="form-group">
+                    <label for="estimate-tel">電話番号</label>
+                    <input type="text" id="estimate-tel" placeholder="03-0000-0000">
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label for="estimate-client">依頼者名（宛先）</label>
+                    <input type="text" id="estimate-client" placeholder="○○ ○○ 様">
+                </div>
+                <div class="form-group">
+                    <label for="estimate-case">事件名・案件概要</label>
+                    <textarea id="estimate-case" rows="3" placeholder="○○事件について"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="estimate-notes">備考・特記事項</label>
+                    <textarea id="estimate-notes" rows="3"
+                        placeholder="・実費（印紙代、郵券代、交通費等）は別途ご請求いたします。&#10;・上記金額は概算であり、事件の進行により変動する場合がございます。"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="estimate-validity">見積有効期限</label>
+                    <input type="text" id="estimate-validity" placeholder="発行日より30日間">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="action-btn" id="preview-estimate-btn">プレビュー</button>
+                <button class="action-btn primary" id="download-estimate-btn">PDFダウンロード</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 見積書プレビュー -->
+    <div class="modal-overlay" id="preview-modal" style="display: none;">
+        <div class="modal modal-large">
+            <div class="modal-header">
+                <h2>見積書プレビュー</h2>
+                <button class="modal-close" id="preview-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="estimate-preview" id="estimate-preview">
+                    <!-- 見積書がここに挿入される -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="action-btn" id="back-to-edit-btn">編集に戻る</button>
+                <button class="action-btn primary" id="final-download-btn">PDFダウンロード</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">クリップボードにコピーしました</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="calculator.js"></script>
+</body>
+
+</html>
