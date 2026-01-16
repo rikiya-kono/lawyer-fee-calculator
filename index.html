@@ -436,11 +436,11 @@
             <div class="modal-body">
                 <div class="form-group">
                     <label for="estimate-office">事務所名</label>
-                    <input type="text" id="estimate-office" placeholder="○○法律事務所">
+                    <input type="text" id="estimate-office" placeholder="例：弁護士法人○○ / 法律事務所○○">
                 </div>
                 <div class="form-group">
                     <label for="estimate-lawyer">弁護士名</label>
-                    <input type="text" id="estimate-lawyer" placeholder="弁護士 ○○ ○○">
+                    <input type="text" id="estimate-lawyer" placeholder="例：弁護士 山田太郎 / 山田太郎（弁護士）">
                 </div>
                 <div class="form-group">
                     <label for="estimate-address">事務所住所</label>
@@ -471,7 +471,7 @@
             </div>
             <div class="modal-footer">
                 <button class="action-btn" id="preview-estimate-btn">プレビュー</button>
-                <button class="action-btn primary" id="download-estimate-btn">PDFダウンロード</button>
+                <button class="action-btn primary" id="download-estimate-btn">印刷 / PDF保存</button>
             </div>
         </div>
     </div>
@@ -490,7 +490,7 @@
             </div>
             <div class="modal-footer">
                 <button class="action-btn" id="back-to-edit-btn">編集に戻る</button>
-                <button class="action-btn primary" id="final-download-btn">PDFダウンロード</button>
+                <button class="action-btn primary" id="final-download-btn">印刷 / PDF保存</button>
             </div>
         </div>
     </div>
@@ -533,7 +533,7 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- 印刷機能を使用するため外部ライブラリ不要 -->
     <script src="calculator.js"></script>
 </body>
 

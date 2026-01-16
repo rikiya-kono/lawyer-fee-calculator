@@ -763,22 +763,69 @@ select:focus {
 
 @media print {
 
-    .tabs,
-    .calculate-btn,
-    .result-actions,
-    .toast,
-    .footer {
+    /* 印刷時はすべて非表示 */
+    body>* {
         display: none !important;
     }
 
-    .container,
-    .calculator,
-    .results {
-        box-shadow: none;
-        border: none;
-        margin: 0;
-        padding: 0;
+    /* プレビューモーダルのみ表示（他のモーダルは非表示） */
+    #preview-modal {
+        display: block !important;
+        position: static !important;
+        background: none !important;
+        backdrop-filter: none !important;
+        padding: 0 !important;
+    }
+
+    /* 入力モーダルとガイドモーダルは非表示 */
+    #estimate-modal,
+    #guide-modal {
+        display: none !important;
+    }
+
+    #preview-modal .modal {
+        display: block !important;
+        position: static !important;
+        max-width: none !important;
+        max-height: none !important;
+        width: 100% !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        overflow: visible !important;
+    }
+
+    #preview-modal .modal-header,
+    #preview-modal .modal-footer {
+        display: none !important;
+    }
+
+    #preview-modal .modal-body {
+        padding: 0 !important;
+    }
+
+    .estimate-preview {
+        width: 100% !important;
+        max-width: 210mm !important;
+        /* A4幅 */
+        margin: 0 auto !important;
+        padding: 15mm !important;
+        border: none !important;
+        box-shadow: none !important;
         background: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .estimate-preview * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    /* ページ設定 */
+    @page {
+        size: A4 portrait;
+        margin: 10mm;
     }
 }
 

@@ -1140,8 +1140,8 @@ function formatDailyResultHtml(result, taxRate) {
 // ========================================
 
 function generateEstimatePreview() {
-    const office = document.getElementById('estimate-office').value || '○○法律事務所';
-    const lawyer = document.getElementById('estimate-lawyer').value || '弁護士 ○○ ○○';
+    const office = document.getElementById('estimate-office').value || '（事務所名未入力）';
+    const lawyer = document.getElementById('estimate-lawyer').value || '（弁護士名未入力）';
     const address = document.getElementById('estimate-address').value || '';
     const tel = document.getElementById('estimate-tel').value || '';
     const client = document.getElementById('estimate-client').value || '○○ 様';
@@ -1273,57 +1273,9 @@ function generateEstimatePreview() {
 }
 
 function downloadPDF() {
-    const element = document.getElementById('estimate-preview');
-
-    const now = new Date();
-    const yyyy = now.getFullYear();
-    const mm = String(now.getMonth() + 1).padStart(2, '0');
-    const dd = String(now.getDate()).padStart(2, '0');
-    const hh = String(now.getHours()).padStart(2, '0');
-    const min = String(now.getMinutes()).padStart(2, '0');
-
-    const filename = `Estimate_${yyyy}${mm}${dd}_${hh}${min}.pdf`;
-
-    // クローンを作成して調整
-    const clone = element.cloneNode(true);
-
-    // PDF生成用に一時的にスタイルを適用
-    Object.assign(clone.style, {
-        width: '800px', // A4幅に合わせて固定
-        maxWidth: 'none',
-        position: 'fixed',
-        top: '0',
-        left: '-10000px', // ユーザに見えない位置
-        zIndex: '-1000',
-        background: '#ffffff',
-        margin: '0',
-        display: 'block' // 明示的に表示
-    });
-
-    document.body.appendChild(clone);
-
-    const opt = {
-        margin: 10,
-        filename: filename,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: {
-            scale: 2,
-            useCORS: true,
-            windowWidth: 1000
-        },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
-
-    html2pdf().set(opt).from(clone).save().then(() => {
-        if (document.body.contains(clone)) {
-            document.body.removeChild(clone);
-        }
-    }).catch(err => {
-        console.error('PDF generation failed:', err);
-        if (document.body.contains(clone)) {
-            document.body.removeChild(clone);
-        }
-    });
+    // ブラウザの印刷機能を使用（PDF保存も可能）
+    // @media print CSSにより、見積書のみが印刷される
+    window.print();
 }
 
 // ========================================
