@@ -1140,12 +1140,12 @@ function formatDailyResultHtml(result, taxRate) {
 // ========================================
 
 function generateEstimatePreview() {
-    const office = document.getElementById('estimate-office').value || '（事務所名未入力）';
-    const lawyer = document.getElementById('estimate-lawyer').value || '（弁護士名未入力）';
+    const office = document.getElementById('estimate-office').value || '';
+    const lawyer = document.getElementById('estimate-lawyer').value || '';
     const address = document.getElementById('estimate-address').value || '';
     const tel = document.getElementById('estimate-tel').value || '';
-    const client = document.getElementById('estimate-client').value || '○○ 様';
-    const caseTitle = document.getElementById('estimate-case').value || '○○事件について';
+    const client = document.getElementById('estimate-client').value || '様';
+    const caseTitle = document.getElementById('estimate-case').value || '';
     const notes = document.getElementById('estimate-notes').value || '・実費（印紙代、郵券代、交通費等）は別途ご請求いたします。\n・上記金額は概算であり、事件の進行により変動する場合がございます。';
     const validity = document.getElementById('estimate-validity').value || '発行日より30日間';
 
