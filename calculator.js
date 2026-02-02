@@ -743,6 +743,51 @@ function initModalHandlers() {
     // 見積書モーダル
     const estimateModal = document.getElementById('estimate-modal');
     const previewModal = document.getElementById('preview-modal');
+    const rememberCheckbox = document.getElementById('remember-office-info');
+
+    // 保存された事務所情報を読み込む
+    const loadOfficeInfo = () => {
+        const savedInfo = localStorage.getItem('lawyer-fee-calc-office-info');
+        if (savedInfo) {
+            try {
+                const info = JSON.parse(savedInfo);
+                document.getElementById('estimate-office').value = info.office || '';
+                document.getElementById('estimate-lawyer').value = info.lawyer || '';
+                document.getElementById('estimate-address').value = info.address || '';
+                document.getElementById('estimate-tel').value = info.tel || '';
+                rememberCheckbox.checked = true;
+            } catch (e) {
+                console.error('Failed to load office info:', e);
+            }
+        }
+    };
+
+    // 事務所情報を保存する
+    const saveOfficeInfo = () => {
+        if (rememberCheckbox.checked) {
+            const info = {
+                office: document.getElementById('estimate-office').value,
+                lawyer: document.getElementById('estimate-lawyer').value,
+                address: document.getElementById('estimate-address').value,
+                tel: document.getElementById('estimate-tel').value
+            };
+            localStorage.setItem('lawyer-fee-calc-office-info', JSON.stringify(info));
+        } else {
+            localStorage.removeItem('lawyer-fee-calc-office-info');
+        }
+    };
+
+    // チェックボックス変更時に保存/削除
+    rememberCheckbox.addEventListener('change', saveOfficeInfo);
+
+    // 事務所情報の入力フィールド変更時に自動保存
+    ['estimate-office', 'estimate-lawyer', 'estimate-address', 'estimate-tel'].forEach(id => {
+        document.getElementById(id).addEventListener('input', () => {
+            if (rememberCheckbox.checked) {
+                saveOfficeInfo();
+            }
+        });
+    });
 
     document.getElementById('modal-close').addEventListener('click', () => {
         estimateModal.style.display = 'none';
@@ -753,12 +798,14 @@ function initModalHandlers() {
     });
 
     document.getElementById('preview-estimate-btn').addEventListener('click', () => {
+        saveOfficeInfo();
         generateEstimatePreview();
         estimateModal.style.display = 'none';
         previewModal.style.display = 'flex';
     });
 
     document.getElementById('download-estimate-btn').addEventListener('click', () => {
+        saveOfficeInfo();
         generateEstimatePreview();
         estimateModal.style.display = 'none';
         previewModal.style.display = 'flex';
@@ -780,6 +827,9 @@ function initModalHandlers() {
     previewModal.addEventListener('click', (e) => {
         if (e.target === previewModal) previewModal.style.display = 'none';
     });
+
+    // 初期読み込み
+    loadOfficeInfo();
 }
 
 function initActionButtons() {
@@ -789,6 +839,7 @@ function initActionButtons() {
         document.getElementById('estimate-modal').style.display = 'flex';
     });
 }
+
 
 /**
  * 計算実行
