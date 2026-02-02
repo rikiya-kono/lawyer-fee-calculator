@@ -84,6 +84,10 @@ body {
     margin-bottom: 50px;
     position: relative;
     padding: 40px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .header::after {
@@ -92,7 +96,14 @@ body {
     width: 60px;
     height: 3px;
     background: var(--color-accent);
-    margin: 20px auto 0;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header-content {
+    text-align: center;
 }
 
 .header h1 {
@@ -109,6 +120,32 @@ body {
     color: var(--color-text-muted);
     font-weight: 300;
     letter-spacing: 0.05em;
+}
+
+.help-btn {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    background: white;
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.help-btn:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: rgba(207, 168, 110, 0.1);
 }
 
 /* ========================================

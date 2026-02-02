@@ -655,6 +655,7 @@ function initGuideModal() {
     const guideClose = document.getElementById('guide-close');
     const guideStart = document.getElementById('guide-start');
     const dontShowCheckbox = document.getElementById('guide-dont-show');
+    const showGuideBtn = document.getElementById('show-guide-btn');
 
     // 初回訪問チェック
     const hasVisited = localStorage.getItem('lawyer-fee-calc-visited');
@@ -670,6 +671,10 @@ function initGuideModal() {
         }
     };
 
+    const showGuide = () => {
+        guideModal.style.display = 'flex';
+    };
+
     guideClose.addEventListener('click', closeGuide);
     guideStart.addEventListener('click', () => {
         closeGuide();
@@ -679,6 +684,9 @@ function initGuideModal() {
     guideModal.addEventListener('click', (e) => {
         if (e.target === guideModal) closeGuide();
     });
+
+    // ヘルプボタンでガイド表示
+    showGuideBtn.addEventListener('click', showGuide);
 }
 
 function initTabs() {
